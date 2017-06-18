@@ -3,26 +3,33 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  target: 'web',
+	devtool: 'inline-source-map',
   entry: './app/main.js',
   output: {
     path: path.resolve(__dirname, 'public'),
     //publicPath: '/public/',
     filename: 'bundle.js'
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin()
-  ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.tag$/,
         exclude: /node_modules/,
-        loader: 'riot-tag-loader',
-        query: {
-          type: 'es6', // transpile the riot tags using babel
-          hot: true,
-          debug: true
-        }
+        use: [
+          //{ 
+          //  loader: 'html-loader', 
+          //  options: { name: 'test/[name].[ext]' } 
+          //},
+          {
+            loader: 'riot-tag-loader',
+            options: {
+              type: 'es6', // transpile the riot tags using babel
+              hot: true,
+              debug: true
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,
