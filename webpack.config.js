@@ -1,11 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './app/main.js',
   output: {
     path: path.resolve(__dirname, 'public'),
-    publicPath: '/public/',
+    //publicPath: '/public/',
     filename: 'bundle.js'
   },
   plugins: [
@@ -27,7 +28,20 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
-      }
+      },
+      {
+				test: /\.(png|jpg|jpeg|gif|svg)$/,
+				loader: 'file-loader',
+				options: { name: 'img/[name].[ext]' }
+			}
     ]
-  }
+  },
+	plugins: [
+		new HtmlWebpackPlugin({
+			inject: 'body',
+			hash: true,
+			template: './app/index.html',
+			filename: 'index.html'
+		})
+	]
 }

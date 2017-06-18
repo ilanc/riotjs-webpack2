@@ -8,7 +8,7 @@
   <h1>
     { number }
   </h1>
-  <img src="app/svg-logo-h.svg" height="30" />
+  <img src="svg-logo-h.svg" height="30" />
 
   <logs logs={ logs } onclear={ clearLogs }></logs>
 
